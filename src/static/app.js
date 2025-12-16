@@ -25,6 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <p>${details.description}</p>
           <p><strong>Schedule:</strong> ${details.schedule}</p>
           <p><strong>Availability:</strong> ${spotsLeft} spots left</p>
+          <ul id="participants-${name}"></ul>
         `;
 
         activitiesList.appendChild(activityCard);
@@ -34,6 +35,14 @@ document.addEventListener("DOMContentLoaded", () => {
         option.value = name;
         option.textContent = name;
         activitySelect.appendChild(option);
+
+        // Populate participants list
+        const participantsList = document.getElementById(`participants-${name}`);
+        details.participants.forEach(email => {
+          const li = document.createElement('li');
+          li.textContent = email;
+          participantsList.appendChild(li);
+        });
       });
     } catch (error) {
       activitiesList.innerHTML = "<p>Failed to load activities. Please try again later.</p>";
